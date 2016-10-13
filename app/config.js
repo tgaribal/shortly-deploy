@@ -39,9 +39,15 @@ db.once('open', function() {
     timestamps: Date  
   });
 
+  Link = mongoose.model('Link', urlSchema);
+  Link.addListener('created', function(model) {
+    console.log('model: ', model);
+    var shasum = crypto.createHash('sha1');
+    shasum.update(model.get('url'));
+    model.set('code', shasum.digest('hex').slice(0, 5));
+  });
 
-  module.exports.Link = mongoose.model('Link', urlSchema);
-  console.log(module.exports.Link);
+  module.exports.Link = Link;
 
   var userSchema = new mongoose.Schema({
     id: mongoose.Schema.ObjectId,
