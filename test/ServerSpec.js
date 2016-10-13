@@ -1,5 +1,12 @@
-var request = require('supertest');
+//TO DO
+//Have mongod work with npm start
+//Have min.css file update correctly on droplet
+
+
+
+
 var express = require('express');
+var request = require('supertest');
 var expect = require('chai').expect;
 var app = require('../server-config.js');
 var util = require('../lib/utility');
@@ -47,6 +54,7 @@ describe('', function() {
             'url': 'http://www.roflzoo.com/'})
           .expect(200)
           .expect(function(res) {
+            console.log('res.body', res.body);
             expect(res.body.url).to.equal('http://www.roflzoo.com/');
             expect(res.body.code).to.be.ok;
           })
@@ -94,6 +102,7 @@ describe('', function() {
           url: 'http://www.roflzoo.com/',
           title: 'Funny pictures of animals, funny dog pictures',
           baseUrl: 'http://127.0.0.1:4568',
+          code: util.createLinkCode('http://www.roflzoo.com/'),
           visits: 0
         });
 
@@ -118,6 +127,7 @@ describe('', function() {
 
       it('Shortcode redirects to correct url', function(done) {
         var sha = link.code;
+        console.log('sha: ', sha);
         request(app)
           .get('/' + sha)
           .expect(302)
@@ -132,7 +142,7 @@ describe('', function() {
 
   }); // 'Link creation'
 
-  xdescribe('Priviledged Access:', function() {
+  describe('Priviledged Access:', function() {
 
     // /*  Authentication  */
     // // TODO: xit out authentication
@@ -168,7 +178,7 @@ describe('', function() {
 
   }); // 'Privileged Access'
 
-  xdescribe('Account Creation:', function() {
+  describe('Account Creation:', function() {
 
     it('Signup creates a new user', function(done) {
       request(app)
@@ -204,7 +214,7 @@ describe('', function() {
 
   }); // 'Account Creation'
 
-  xdescribe('Account Login:', function() {
+  describe('Account Login:', function() {
 
     beforeEach(function(done) {
       new User({
