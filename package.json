@@ -36,7 +36,8 @@
     "grunt-shell": "^1.2.1",
     "knex": "^0.10.0",
     "mocha": "^2.4.5",
-    "mongoose": "^4.4.10",
+    "mongodb": "^2.2.10",
+    "mongoose": "^4.6.3",
     "nodemon": "^1.11.0",
     "request": "^2.34.0",
     "sqlite3": "~3.1.1"
