@@ -54,7 +54,6 @@ describe('', function() {
             'url': 'http://www.roflzoo.com/'})
           .expect(200)
           .expect(function(res) {
-            console.log('res.body', res.body);
             expect(res.body.url).to.equal('http://www.roflzoo.com/');
             expect(res.body.code).to.be.ok;
           })
@@ -217,10 +216,11 @@ describe('', function() {
   describe('Account Login:', function() {
 
     beforeEach(function(done) {
-      new User({
+      var newUser = new User({
         'username': 'Phillip',
         'password': 'Phillip'
-      }).save(function() {
+      });
+      newUser.save(function() {
         done();
       });
     });
