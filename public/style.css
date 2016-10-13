@@ -126,7 +126,7 @@ form input[type=text], form input[type=password] {
 }
 
 .creator img.spinner {
-  height: 47px;
+  height: 46px;
   margin-bottom: 5px;
   padding: 10px;
   display: none;
