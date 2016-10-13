@@ -23,8 +23,8 @@ db.once('open', function() {
     baseUrl: String,
     code: String,
     title: String,
-    visits: Number,
-    timestamps: Date  
+    visits: { type: Number, default: 0 },
+    timestamps: Date,
   });
 
   urlSchema.on('save', function(model) {
