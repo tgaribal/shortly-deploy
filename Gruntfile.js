@@ -57,7 +57,6 @@ module.exports = function(grunt) {
         files: [
           'public/client/**/*.js',
           'public/lib/**/*.js',
-          'public/*.css',
         ],
         tasks: [
           'concat',
@@ -66,7 +65,10 @@ module.exports = function(grunt) {
       },
       css: {
         files: 'public/*.css',
-        tasks: ['cssmin']
+        tasks: ['cssmin'],
+        options: {
+          livereload: true,
+        }
       }
     },
 
