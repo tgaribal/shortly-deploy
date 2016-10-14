@@ -12,6 +12,8 @@ var app = require('../server-config.js');
 var util = require('../lib/utility');
 
 var db = require('../app/config');
+var Link = require('../app/models/link');
+var User = require('../app/models/user');
 
 /////////////////////////////////////////////////////
 // NOTE: these tests are designed for mongo!
@@ -26,9 +28,9 @@ describe('', function() {
       .end(function(err, res) {
 
         // Delete objects from db so they can be created later for the test
-        db.Link.remove({url: 'http://www.roflzoo.com/'}).exec();
-        db.User.remove({username: 'Savannah'}).exec();
-        db.User.remove({username: 'Phillip'}).exec();
+        Link.remove({url: 'http://www.roflzoo.com/'}).exec();
+        User.remove({username: 'Savannah'}).exec();
+        User.remove({username: 'Phillip'}).exec();
 
         done();
       });
@@ -67,7 +69,7 @@ describe('', function() {
             'url': 'http://www.roflzoo.com/'})
           .expect(200)
           .expect(function(res) {
-            db.Link.findOne({'url': 'http://www.roflzoo.com/'})
+            Link.findOne({'url': 'http://www.roflzoo.com/'})
               .exec(function(err, link) {
                 if (err) { console.log(err); }
                 expect(link.url).to.equal('http://www.roflzoo.com/');
@@ -83,7 +85,7 @@ describe('', function() {
             'url': 'http://www.roflzoo.com/'})
           .expect(200)
           .expect(function(res) {
-            db.Link.findOne({'url': 'http://www.roflzoo.com/'})
+            Link.findOne({'url': 'http://www.roflzoo.com/'})
               .exec(function(err, link) {
                 if (err) { console.log(err); }
                 expect(link.title).to.equal('Funny pictures of animals, funny dog pictures');
@@ -97,7 +99,7 @@ describe('', function() {
     describe('With previously saved urls: ', function() {
 
       beforeEach(function(done) {
-        link = new db.Link({
+        link = new Link({
           url: 'http://www.roflzoo.com/',
           title: 'Funny pictures of animals, funny dog pictures',
           baseUrl: 'http://127.0.0.1:4568',

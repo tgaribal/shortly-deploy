@@ -8,45 +8,8 @@ var db = mongoose.connection;
 
 db.on('error', console.error);
 db.once('open', function() {
-  var urlSchema = new mongoose.Schema({
-    id: mongoose.Schema.ObjectId,
-    url: String,
-    baseUrl: String,
-    code: String,
-    title: String,
-    visits: { type: Number, default: 0 },
-    timestamps: Date,
-  });
+  
 
-  urlSchema.on('save', function(model) {
-    model.code = util.createLinkCode(model.url);
-  });
-
-  Link = mongoose.model('Link', urlSchema);
-
-  module.exports.Link = Link;
-
-  var userSchema = new mongoose.Schema({
-    id: mongoose.Schema.ObjectId,
-    username: String,
-    password: String,
-    timestamps: Date
-  });
-
-  userSchema.methods.hashPassword = function(cb) {
-    var cipher = Promise.promisify(bcrypt.hash);
-    return cipher(this.password, null, null).bind(this)
-      .then(function(hash) {
-        this.password = hash;
-        cb();
-      });
-  };
-  userSchema.pre('save', function(next) {
-    this.hashPassword(next);
-  });
-
-  User = mongoose.model('User', userSchema);
-  module.exports.User = User;
 
 });
 
