@@ -1,12 +1,3 @@
-// var path = require('path');
-// var knex = require('knex')({
-//   client: 'sqlite3',
-//   connection: {
-//     filename: path.join(__dirname, '../db/shortly.sqlite')
-//   },
-//   useNullAsDefault: true
-// });
-// var db = require('bookshelf')(knex);
 var crypto = require('crypto');
 var util = require('../lib/utility');
 var bcrypt = require('bcrypt-nodejs');
@@ -50,22 +41,11 @@ db.once('open', function() {
         cb();
       });
   };
-  // var hashPassword = function(password) {
-  //   var cipher = Promise.promisify(bcrypt.hash);
-  //   return cipher(password, null, null)
-  //   .then(function(hash) {
-  //     return hash;
-  //   });
-  // };
-
   userSchema.pre('save', function(next) {
     this.hashPassword(next);
   });
 
   User = mongoose.model('User', userSchema);
-
-  
-
   module.exports.User = User;
 
 });
